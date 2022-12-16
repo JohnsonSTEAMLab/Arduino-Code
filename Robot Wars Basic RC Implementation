@@ -1,0 +1,120 @@
+
+// Define Input Connections
+#define CH1 3        //Here, we are defining a series of RC channel 
+#define CH2 5       // and arduino channel connections. 
+#define CH6 9        // we want to use. 
+
+bool isHit = false;
+int ch1Value;       // Here, we ar declaring
+int ch2Value;       // a series of variables - one for 
+bool ch6Value;        // here we declare the Channel 6 value as a
+              // boolean variable (either 1 or 0 only)
+
+int readChannel(int channelInput, int minLimit, int maxLimit, int defaultValue){
+  int ch = pulseIn(channelInput, HIGH, 30000);                  // this is a big fancy function that
+  if (ch < 100) return defaultValue;                            // essentially counts the pulse width 
+  return map(ch, 1000, 2000, minLimit, maxLimit);               // (duration of high/low transition)
+}                                                               // and returns a value 
+
+// Read the switch channel and return a boolean value
+bool readSwitch(byte channelInput, bool defaultValue){
+  int intDefaultValue = (defaultValue)? 100: 0;
+  int ch = readChannel(channelInput, 0, 100, intDefaultValue);
+  return (ch > 50);
+}
+
+void setup(){
+  // Set up serial monitor
+  Serial.begin(115200);         // start serial communication. 
+  pinMode(CH1, INPUT);          // inputs for RC LINK
+  pinMode(CH2, INPUT);
+  pinMode(CH6, INPUT);
+  
+pinMode(10, OUTPUT); //Motor1   //pins 10,11,12, and 13 Are for the motor controller
+pinMode(11, OUTPUT); //Motor2
+pinMode(12, OUTPUT); //Motor3
+pinMode(13, OUTPUT); //Motor4
+pinMode(2, INPUT_PULLUP);
+}
+
+
+void loop() {
+
+while ( isHit == false){
+  
+  		  Serial.println("active");
+  		
+  			if(analogRead(0) >= 500){
+  			isHit = true;
+  			}
+  			
+          ch1Value = readChannel(CH1, -100, 100, 0);    // Each loop, we create a variable
+          ch2Value = readChannel(CH2, -100, 100, 0);    // and store the result returned by the readChannel() function
+          ch6Value = readSwitch(CH6, false);            // these values then get used by readChannel() or 
+          
+  		  												// or readSwitch() each time they are called. 
+          												// Driving Logic
+
+          if (ch1Value >= 20){                            //Stick Forward
+            analogWrite(10, 255);
+            analogWrite(11, 255);
+            digitalWrite(12, HIGH);
+            digitalWrite(13, LOW);   
+          }
+
+          if (ch1Value >= -10 && ch1Value <= 10){         //Stick Center    
+            analogWrite(10, 0);
+            analogWrite(11, 0);
+            digitalWrite(12, HIGH);
+            digitalWrite(13, LOW);   
+          }
+
+
+          if (ch1Value <= -20){                           // Stick Backward
+            analogWrite(10, 255);
+            analogWrite(11, 255);
+            digitalWrite(12, LOW);
+            digitalWrite(13, HIGH);  
+          }
+
+
+          if (ch2Value >= 20){                            // Stick Right
+            analogWrite(10, 255);
+            analogWrite(11, 255);
+            digitalWrite(12, HIGH);
+            digitalWrite(13, HIGH);  
+          }
+
+          if (ch2Value <= -20){                           // Stick Left
+            analogWrite(10, 255);
+            analogWrite(11, 255);
+            digitalWrite(12, LOW);
+            digitalWrite(13, LOW);   
+          }
+
+
+
+          // Print to Serial Monitor. For Diagnostics, arduino prints the value of each channel.
+          //Serial.print("Ch1: ");      // good way to make sure your link is working!
+          //Serial.print(ch1Value);
+          //Serial.print(" | Ch2: ");
+          //Serial.print(ch2Value);
+          //Serial.println("");
+          //Serial.print(" | Ch3: ");
+          //Serial.print(ch3Value);
+}
+
+  while(isHit == true){
+    
+      isHit = false;
+      Serial.println("I've Been Hit");
+      delay(5000);
+      Serial.println("Going Back online");
+      delay(1000);
+  
+  break;
+    
+  }
+  
+
+}
