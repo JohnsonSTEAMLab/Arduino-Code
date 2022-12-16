@@ -1,0 +1,36 @@
+
+#include <Servo.h>
+
+Servo myservoHead;  
+Servo myservoArm1;  
+Servo myservoArm2;  
+
+
+int pos = 0;    
+
+void setup() {
+  myservoHead.attach(3);  
+  myservoArm1.attach(5);  
+  myservoArm2.attach(6);  
+  
+}
+
+void loop() {
+  ////////////////////////////////////
+  for (pos = 0; pos <= 180; pos += 1) { 
+    // in steps of 1 degree
+    myservoHead.write(pos);
+            
+    delay(15);                                      // Changing the delay(##) changes how fast the movent happens          
+  }  
+  myservoArm1.write(random(180));
+  myservoArm2.write(random(180));                   // This is movement of Head Area
+  for (pos = 180; pos >= 0; pos -= 1) { 
+    myservoHead.write(pos);
+             
+    delay(15);                       
+  }
+  myservoArm1.write(random(180));  
+  myservoArm2.write(random(180));  
+    ////////////////////////////////////////
+}
