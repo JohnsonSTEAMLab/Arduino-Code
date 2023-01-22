@@ -1,0 +1,26 @@
+int numberOfLives = 3;
+  
+void setup(){
+  pinMode(2, OUTPUT);
+}
+
+void loop(){
+                 // blink a light a few times
+                 // spend last life
+                 // die. 
+
+  while (numberOfLives >= 1){       // this bit of code ONLY
+        digitalWrite(2, HIGH);      // runs while the variable
+        delay(100);                 // numberOfLives is greater than
+        digitalWrite(2, LOW);       // or Equal to 1. 
+        delay(100);
+       //numberOfLives = 0;            
+                                           // if we uncomment the last line and   
+       numberOfLives = numberOfLives -1;   // uncomment this on we'll be able to live longer - don't forget to put in more quarters!
+    
+                                           // blink 3 times before dying.  
+        delay(2000);                       // pause for 2 seconds and take our last breath
+
+  }
+  
+}
