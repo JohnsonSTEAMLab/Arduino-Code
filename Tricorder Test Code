@@ -1,0 +1,51 @@
+int delayVal(50);
+void setup() {
+  // put your setup code here, to run once:
+pinMode(2, OUTPUT);
+pinMode(3, OUTPUT);
+pinMode(4, OUTPUT);
+pinMode(5, OUTPUT);
+pinMode(6, OUTPUT);
+pinMode(7, OUTPUT);
+pinMode(8, OUTPUT);
+pinMode(9, OUTPUT);
+Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+ Serial.println(analogRead(0));
+delayVal = map(analogRead(0), 0, 430, 0, 100);
+digitalWrite(2, HIGH);
+delay(delayVal);
+digitalWrite(2, LOW);
+delay(delayVal);
+digitalWrite(3, HIGH);
+delay(delayVal);
+digitalWrite(3, LOW);
+delay(delayVal);
+digitalWrite(4, HIGH);
+delay(delayVal);
+digitalWrite(4, LOW);
+delay(delayVal);
+digitalWrite(5, HIGH);
+delay(delayVal);
+digitalWrite(5, LOW);
+delay(delayVal);
+digitalWrite(6, HIGH);
+delay(delayVal);
+digitalWrite(6, LOW);
+delay(delayVal);
+digitalWrite(7, HIGH);
+delay(delayVal);
+digitalWrite(7, LOW);
+delay(delayVal);
+digitalWrite(8, HIGH);
+delay(delayVal);
+digitalWrite(8, LOW);
+delay(delayVal);
+digitalWrite(9, HIGH);
+delay(delayVal);
+digitalWrite(9, LOW);
+delay(delayVal);
+}
