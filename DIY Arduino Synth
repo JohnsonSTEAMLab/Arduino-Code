@@ -1,5 +1,5 @@
 //A DIY Synthesizer Sequencer
-
+// ONce built use the system to tune the notes CDEGA all in the same octave (C2, D2, E2, G2, A2)
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
