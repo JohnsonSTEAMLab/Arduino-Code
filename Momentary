@@ -1,3 +1,6 @@
+
+// Associated TinkerCircuit design : https://www.tinkercad.com/things/bCqo8ZIHFto
+
 bool running = false;                                         // init a "boolean" variable "running", as false
 
 void setup() {
