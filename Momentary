@@ -1,0 +1,36 @@
+bool running = false;                                         // init a "boolean" variable "running", as false
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);                                            //always
+pinMode(2, INPUT_PULLUP);                                      // D2 setup as an input, pullup. PU pins are normally "HIGH"
+
+}
+
+void loop() {
+
+        if(digitalRead(2) == HIGH){                           // some logic to check if digital pin 2 - our button
+          Serial.println("not pressed");                      // is HIGH or LOW (pushed)
+        running = false;
+        }
+
+        if(digitalRead(2) == LOW){                            //when we press the button, we short D2 to ground, causing the pin to go LOW
+          Serial.println(" pressed");
+        running = true;
+        }                                                     
+                                                              
+        while (running == true){                              //   When running variable is changed to "true"         
+        Serial.println("*");                                  // We do all the things
+        Serial.println("**");
+        Serial.println("****");
+        Serial.println("Do the program stuff here");
+        Serial.println("**");
+        Serial.println("*");
+        Serial.println("*");
+        Serial.println("*");
+        delay(2000);
+        break;                                                  //at the end of the things, we "break" to jump back into the main loop.
+        }
+
+}
+
