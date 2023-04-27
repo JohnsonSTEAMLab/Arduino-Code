@@ -1,5 +1,5 @@
 bool button = false;       //initiatize button state as not pressed
-int buttonPin = 7
+int buttonPin = 7;
 void setup() {
   // put your setup code here, to run once:
 pinMode(7, INPUT_PULLUP); // modify to reflect button pin
