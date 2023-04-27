@@ -1,0 +1,29 @@
+bool button = false;       //initiatize button state as not pressed
+int buttonPin = 7
+void setup() {
+  // put your setup code here, to run once:
+pinMode(7, INPUT_PULLUP); // modify to reflect button pin
+Serial.begin(9600);       // start serial communications
+}
+void loop(){
+//////////////////////////DON'T TOUCH THIS CODE///////////////////
+    if (digitalRead(buttonPin) == HIGH){  // if the button is NOT pressed,
+         button = false;             // DO THIS STUFF          
+    }   
+    else if(digitalRead(buttonPin) == LOW){ // IF THE BUTTON IS PRESSED
+          button = true;
+          Serial.println("You Pushed My Button"); // DO THIS STUFF INSTEAD
+    }
+ /////////////////////////DON'T TOUCH THIS CODE   
+    while(button == true){      //while button has been pushed
+          Serial.println("inside the while loop");
+///////////////////////PUT ROBO INSTRUCTIONS HERE////////////
+
+//////////////////////PUT ROBO INSTRUCTIONS HERE//////////////
+          button = false;             //set button to false
+          break;                      // jump back to main loop
+    }
+}
+
+
+  
