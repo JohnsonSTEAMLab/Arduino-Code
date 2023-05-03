@@ -1,11 +1,21 @@
+#include <Servo.h>   // bring in that servo library yo!
+
 bool button = false;       //initiatize button state as not pressed
-int buttonPin = 7;
+int buttonPin = 9;
+int leftMotorPin = 3;     //define a pin for the left motor
+int rightMotorPin = 5;    // blah blah right motor 
+Servo leftMotor;          // create a left motor
+Servo rightMotor;         // create a right motor
+
 void setup() {
   // put your setup code here, to run once:
-pinMode(7, INPUT_PULLUP); // modify to reflect button pin
+pinMode(buttonPin, INPUT_PULLUP); // modify to reflect button pin
+leftMotor.attach(leftMotorPin);     //attach a motor to a pin
+rightMotor.attach(rightMotorPin);   //attach a motor to a pin
 Serial.begin(9600);       // start serial communications
 }
 void loop(){
+
 //////////////////////////DON'T TOUCH THIS CODE///////////////////
     if (digitalRead(buttonPin) == HIGH){  // if the button is NOT pressed,
          button = false;             // DO THIS STUFF          
@@ -19,11 +29,33 @@ void loop(){
           Serial.println("inside the while loop");
 ///////////////////////PUT ROBO INSTRUCTIONS HERE////////////
 
+driveForward(4000);
+
 //////////////////////PUT ROBO INSTRUCTIONS HERE//////////////
           button = false;             //set button to false
           break;                      // jump back to main loop
-    }
+    }    
 }
+
+void driveForward(int duration){
+  Serial.println("going forward");
+  leftMotor.write(135);
+  rightMotor.write(45);
+  delay(duration);
+  leftMotor.write(90);
+  rightMotor.write(90);
+}
+void driveBackward(int duration){
+  Serial.println("going backward");
+  leftMotor.write(45);
+  rightMotor.write(135);
+  delay(duration);
+  leftMotor.write(90);
+  rightMotor.write(90);
+}
+
+
+
 
 
   
