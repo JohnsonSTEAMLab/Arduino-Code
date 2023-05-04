@@ -1,0 +1,87 @@
+int MotorA = 10;
+int MotorB = 11;
+int MotorADirection = 12;
+int MotorBDirection = 13;
+
+void setup(){
+pinMode(MotorA, OUTPUT); //Motor1
+pinMode(MotorB, OUTPUT); //Motor2
+pinMode(MotorADirection, OUTPUT); //Motor3
+pinMode(MotorBDirection, OUTPUT); //Motor4
+}
+
+void loop() {
+
+/// Use the following commands to program your robot
+//    forward(DELAY_TIME_IN_MS);                          move forward for 1 seconds
+//    backward(DELAY_TIME_IN_MS);                         move backward for 1 seconds
+//    rotateLeft(DELAY_TIME_IN_MS);                       rotate toward the left
+//    rotateRight(DELAY_TIME_IN_MS);                      rotate toward the right
+///////////////////////////////////////////////////////////
+////// ALL CODE GOES BETWEEN THESE BARS
+//////////////////////////////////////////////////////////
+idle();
+  
+  
+  
+  
+///////////////////////////////////////////////////////////
+////// ALL CODE GOES BETWEEN THESE BARS
+//////////////////////////////////////////////////////////
+} 
+
+void idle(){
+analogWrite(MotorA, 0);
+analogWrite(MotorB, 0);
+digitalWrite(MotorADirection, HIGH);
+digitalWrite(MotorBDirection, LOW);  
+}
+
+void forward(int forwardDelay){
+analogWrite(MotorA, 255);			
+analogWrite(MotorB, 255);
+digitalWrite(MotorADirection, HIGH);
+digitalWrite(MotorBDirection, LOW); 
+delay(forwardDelay); 
+analogWrite(MotorA, 0);
+analogWrite(MotorB, 0);
+digitalWrite(MotorADirection, HIGH);
+digitalWrite(MotorBDirection, LOW);
+delay(forwardDelay); 
+}
+
+void backward(int backwardDelay){
+analogWrite(MotorA, 255);
+analogWrite(MotorB, 255);
+digitalWrite(MotorADirection, LOW);
+digitalWrite(MotorBDirection, HIGH);
+delay(backwardDelay);
+analogWrite(MotorA, 0);
+analogWrite(MotorB, 0);
+digitalWrite(MotorADirection, LOW);
+digitalWrite(MotorBDirection, HIGH);  
+}
+
+void rotateRight(int rotateRightDelay){
+analogWrite(MotorA, 255);
+analogWrite(MotorB, 255);
+digitalWrite(MotorADirection, HIGH);
+digitalWrite(MotorBDirection, HIGH);
+delay(rotateRightDelay);
+analogWrite(MotorA, 0);
+analogWrite(MotorB, 0);
+digitalWrite(MotorADirection, HIGH);
+digitalWrite(MotorBDirection, HIGH);  
+}
+
+void rotateLeft(int rotateLeftDelay){
+analogWrite(MotorA, 255);
+analogWrite(MotorB, 255);
+digitalWrite(MotorADirection, LOW);
+digitalWrite(MotorBDirection, LOW);
+delay(rotateLeftDelay); 
+analogWrite(MotorA, 0);
+analogWrite(MotorB, 0);
+digitalWrite(MotorADirection, LOW);
+digitalWrite(MotorBDirection, LOW);  
+}
