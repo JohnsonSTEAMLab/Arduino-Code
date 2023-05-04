@@ -1,4 +1,4 @@
-#include <Servo.h>   // bring in that servo library yo!
+#include <Servo.h>   // bring in that servo library yo !
 
 bool button = false;       //initiatize button state as not pressed
 int buttonPin = 9;
