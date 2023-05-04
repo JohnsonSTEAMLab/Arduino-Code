@@ -1,5 +1,5 @@
 // Rotary Encoder Inputs
-#define CLK 2
+#define CLK 2   // these are specific pin connections. CLK on the encoder goes to pin 2, for example. 
 #define DT 3
 #define SW 4
 
