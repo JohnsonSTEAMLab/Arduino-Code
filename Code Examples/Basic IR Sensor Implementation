@@ -1,0 +1,27 @@
+int irSensor = 2;
+bool irSensorState = false; 
+
+
+void setup() {
+Serial.begin(9600);
+Serial.println("Serial is working");
+//pinMode(irSensor, INPUT);  
+  // put your setup code here, to run once:
+}
+
+void loop() {
+
+irSensorState = digitalRead(2);
+  // put your main code here, to run repeatedly:
+if(irSensorState == HIGH){
+  Serial.println("HIGH");
+                          // IF THE SENSOR
+                          //is high, do this.
+} 
+if(irSensorState == LOW){
+  Serial.println("LOW");
+                          //DO THIS
+}
+
+
+}
