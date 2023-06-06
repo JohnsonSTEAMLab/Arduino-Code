@@ -1,0 +1,57 @@
+#define ENCA 2 // Encoder Wire A
+#define ENCB 3 // Encoder Wire B
+#define PWM 5 // Wire to Motor Driver
+#define IN2 6 // Wire to IN 1
+#define IN1 7 // Wire to IN 2
+
+int pos = 0;
+int prevT = 0;
+float eprev = 0;
+float eintegral = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode(ENCA, INPUT);
+pinMode(ENCB, INPUT);
+pinMode(IN1, OUTPUT);
+pinMode(IN2, OUTPUT);
+pinMode(PWM, OUTPUT);
+attachInterrupt(digitalPinToInterrupt(ENCA), readEncoder, RISING);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+//\setMotor(1, 255, PWM, IN1, IN2);
+digitalWrite(IN1, HIGH);
+digitalWrite(IN2, LOW);
+analogWrite(PWM, 120);
+}
+
+void setMotor(int dir, int pwmVal, int pwm, int in1, int in2){
+  analogWrite(pwm, pwmVal);
+  if(dir == 1){
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+  }
+  else if (dir == -1){
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+  }
+  else{
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+  }
+}
+
+void readEncoder(){
+int b = digitalRead(ENCB);
+if(b>0){
+  pos++;
+}
+  else{
+    pos--;
+    
+  }
+}
