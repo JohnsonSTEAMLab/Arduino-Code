@@ -1,7 +1,7 @@
 #include <Servo.h>   // bring in that servo library yo!
 
 bool button = false;       //initiatize button state as not pressed
-int buttonPin = 14;       // Thank you Will! Connect button to analog 1 header (outside pin), and top-left pin of ISCP header (USB to left) 
+int buttonPin = 13;       // Thank you Will! Connect button to analog 1 header (outside pin), and top-left pin of ISCP header (USB to left) 
 int leftMotorPin = 3;     //define a pin for the left motor
 int rightMotorPin = 5;    // blah blah right motor 
 int leftSensorPin = 6;    //Motor connecter 3
@@ -13,7 +13,7 @@ Servo rightMotor;         // create a right motor
 void setup() {
 pinMode(6, INPUT);
 pinMode(9, INPUT);
-pinMode(14, INPUT_PULLUP);   // treating A0 as an digital pin - # 14
+pinMode(buttonPin, INPUT_PULLUP);   // treating A0 as an digital pin - # 14
 leftMotor.attach(leftMotorPin);     //attach a motor to a pin
 rightMotor.attach(rightMotorPin);   //attach a motor to a pin
 Serial.begin(9600);       // start serial communications
@@ -23,12 +23,13 @@ Serial.println("Serial is working!");
 void loop(){
 //////////////////////////DON'T TOUCH THIS CODE///////////////////
     if (digitalRead(buttonPin) == HIGH){  // if the button is NOT pressed,
-         button = false;             // DO THIS STUFF          
+         button = true;             // DO THIS STUFF    
+         Serial.println("You Pushed My Button"); // DO THIS STUFF INSTEAD
+      
     }   
-    else if(digitalRead(buttonPin) == LOW){ // IF THE BUTTON IS PRESSED
-          button = true;
-          Serial.println("You Pushed My Button"); // DO THIS STUFF INSTEAD
-    }
+    if(digitalRead(buttonPin) == LOW){ // IF THE BUTTON IS PRESSED
+          button = false;
+              }
  /////////////////////////DON'T TOUCH THIS CODE   
     while(button == true){      //while button has been pushed
           //Serial.println("inside the while loop");
