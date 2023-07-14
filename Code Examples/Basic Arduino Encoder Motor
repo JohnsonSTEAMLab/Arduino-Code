@@ -1,10 +1,28 @@
-#define ENCA 2 // yellow
-#define ENCB 3 //white
-#define PWM 5
-#define IN2 6
-#define IN1 7
+// https://docs.google.com/spreadsheets/d/1RBW4uiSy89gSQFH0r1hy6tKxYqNslUX9t15UoCkOMRA/edit?usp=sharing
+
+#define ENC1A 2
+#define ENC1B 4
+#define ENC2A 3
+#define ENC2B 7
+
+#define PWM1 5
+#define PWM2 6
+
+#define IN1 16
+#define IN2 17 
+#define IN3 18 
+#define IN4 19 
+
+//#define SERVO1 9
+//#define SERVO2 10
+//#define SERVO3 11
+
+//#define DIGITAL1 8
+//#define DIGITAL2 12
+//#define DIGITAL3 13
 
 int pos = 0;
+int pos2 = 0;
 int prevT = 0;
 float eprev = 0;
 float eintegral = 0;
@@ -12,26 +30,46 @@ float eintegral = 0;
 void setup() {
   // put your setup code here, to run once:
 Serial.begin(9600);
-pinMode(ENCA, INPUT);
-pinMode(ENCB, INPUT);
+pinMode(ENC1A, INPUT);
+pinMode(ENC1B, INPUT);
+pinMode(ENC2A, INPUT);
+pinMode(ENC2B, INPUT);
 pinMode(IN1, OUTPUT);
+pinMode(IN3, OUTPUT);
+pinMode(IN4, OUTPUT);
 pinMode(IN2, OUTPUT);
-pinMode(PWM, OUTPUT);
-attachInterrupt(digitalPinToInterrupt(ENCA), readEncoder, RISING);
+pinMode(PWM1, OUTPUT);
+pinMode(PWM2, OUTPUT);
+
+attachInterrupt(digitalPinToInterrupt(ENC1A), readEncoderA, RISING);
+attachInterrupt(digitalPinToInterrupt(ENC2A), readEncoderB, RISING);
 
 }
 
 void loop() {
-//int encoderPos = readEncoder();
-//Serial.println(encoderPos);
-  // put your main code here, to run repeatedly:
-setMotor(2, 120, PWM, IN1, IN2);
-//digitalWrite(IN1, HIGH);
-//digitalWrite(IN2, LOW);
-//analogWrite(PWM, 255);
+
+Serial.println(pos);
+Serial.println(pos2);
+delay(30);
+//delay(5000);
+//setMotorA(1, 120, PWM1, IN1, IN2);
+setMotorB(1, 200, PWM2, IN3, IN4);
+//delay(2000);
+//setMotorA(2, 0, PWM1, IN1, IN2);
+//setMotorB(2, 0, PWM2, IN3, IN4);
+//delay(2000);
+//setMotorA(2, 120, PWM1, IN1, IN2);
+//setMotorB(1, 120, PWM2, IN3, IN4);
+//delay(2000);
+//setMotorA(2, 0, PWM1, IN1, IN2);
+//setMotorB(2, 0, PWM2, IN3, IN4);
+//delay(10000);
+
+
+
 }
 
-void setMotor(int dir, int pwmVal, int pwm, int in1, int in2){
+void setMotorA(int dir, int pwmVal, int pwm, int in1, int in2){
   analogWrite(pwm, pwmVal);
   if(dir == 1){
     digitalWrite(in1, HIGH);
@@ -47,13 +85,41 @@ void setMotor(int dir, int pwmVal, int pwm, int in1, int in2){
   }
 }
 
-void readEncoder(){
-int b = digitalRead(ENCB);
+void setMotorB(int dir, int pwmVal, int pwm, int in1, int in2){
+  analogWrite(pwm, pwmVal);
+  if(dir == 1){
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+  }
+  else if (dir == 2){
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+  }
+  else{
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+  }
+}
+
+void readEncoderA(){
+int b = digitalRead(ENC1B);
 if(b>0){
   pos++;
 }
   else{
     pos--;
+    
+  }
+}
+
+void readEncoderB(){
+  
+int b = digitalRead(ENC2B);
+if(b>0){
+  pos2++;
+}
+  else{
+    pos2--;
     
   }
 }
