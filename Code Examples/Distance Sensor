@@ -1,0 +1,27 @@
+
+const int trigPin = 9; // set up a pin to trigger our "ping"
+const int echoPin = 10;// set up a pin to time the "echo"
+
+float duration, distance;   // two decimal variables for our distance value.
+
+void setup() {
+  pinMode(trigPin, OUTPUT); //A pin that creates an ultrasonic sound wave. 
+  pinMode(echoPin, INPUT);  // a pin that READS the ultrasonic 
+                            // sound wave bouncing back from a surface 
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);    //Lines 22 - 26:
+  delayMicroseconds(2);          //these lines create a "pulse" of ultrasonic sound
+  digitalWrite(trigPin, HIGH);   //at a specific rate. 
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);  //pulseIn function calculates the time between HIGH
+                                      // readings on the echoPin https://www.arduino.cc/reference/en/language/functions/advanced-io/pulsein/
+  distance = (duration*.0343)/4;       // do the speed of sound math
+  Serial.print("Distance: ");
+  Serial.println(distance);
+  delay(100);
+}
