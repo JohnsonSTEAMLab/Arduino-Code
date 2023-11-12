@@ -1,0 +1,73 @@
+
+
+void setup() {
+
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode(16,OUTPUT); //Direction High or LOW
+pinMode(17,OUTPUT); //Direction High or LOW
+pinMode(18,OUTPUT); //Direction High or LOW
+pinMode(19,OUTPUT); //Direction High or LOW
+pinMode(9, INPUT);
+pinMode(10, INPUT);
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedl
+
+
+
+
+if (digitalRead(9) == 1){
+Serial.println("right sensor");
+rotateRight();
+}
+else if(digitalRead(10) == 1){
+Serial.println("left sensor");  
+rotateLeft();
+}
+else{
+Serial.println("move forward"); 
+moveForward();
+}
+
+
+
+
+}
+
+void moveForward(){
+  digitalWrite(16, LOW); //Motor A Dir 1
+  digitalWrite(17, HIGH);//Motor A Dir 2
+  analogWrite(6, 80);//Motor A Speed
+  digitalWrite(18, HIGH);//Motor B Dir 1
+  digitalWrite(19, LOW);//Motor B Dir 2
+  analogWrite(5, 110);//Motor B Speed
+}
+void moveBackward(){
+  digitalWrite(16, HIGH); //Motor A Dir 1
+  digitalWrite(17, LOW);//Motor A Dir 2
+  analogWrite(6, 80);//Motor A Speed
+  digitalWrite(18, LOW);//Motor B Dir 1
+  digitalWrite(19, HIGH);//Motor B Dir 2
+  analogWrite(5, 110);//Motor B Speed
+}
+void rotateRight(){
+  digitalWrite(16, LOW); //Motor A Dir 1
+  digitalWrite(17, HIGH);//Motor A Dir 2
+  analogWrite(6, 110);//Motor A Speed
+  digitalWrite(18, LOW);//Motor B Dir 1
+  digitalWrite(19, HIGH);//Motor B Dir 2
+  analogWrite(5, 110);//Motor B Speed
+}
+void rotateLeft(){
+  digitalWrite(16, HIGH); //Motor A Dir 1
+  digitalWrite(17, LOW);//Motor A Dir 2
+  analogWrite(6, 110);//Motor A Speed
+  digitalWrite(18, HIGH);//Motor B Dir 1
+  digitalWrite(19, LOW);//Motor B Dir 2
+  analogWrite(5, 110);//Motor B Speed
+}
+
+
