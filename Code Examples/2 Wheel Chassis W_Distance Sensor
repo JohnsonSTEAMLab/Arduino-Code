@@ -1,0 +1,85 @@
+const int trigPin = 9; // set up a pin to trigger our "ping"
+const int echoPin = 10;// set up a pin to time the "echo"
+word botStatus; 
+float duration, distance;   // two decimal variables for our distance value.
+
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode(16,OUTPUT); //Direction High or LOW
+pinMode(17,OUTPUT); //Direction High or LOW
+pinMode(18,OUTPUT); //Direction High or LOW
+pinMode(19,OUTPUT); //Direction High or LOW
+
+
+
+  pinMode(trigPin, OUTPUT); //A pin that creates an ultrasonic sound wave. 
+  pinMode(echoPin, INPUT);  // a pin that READS the ultrasonic 
+                            // sound wave bouncing back from a surface 
+}
+
+void loop() {
+  // put your main code here, to run repeatedl
+
+
+
+
+if (getDistance() < 30){
+Serial.println("too close!");
+rotateLeft();
+}
+else{
+moveForward();  
+}
+
+
+
+
+}
+
+void moveForward(){
+  digitalWrite(16, LOW); //Motor A Dir 1
+  digitalWrite(17, HIGH);//Motor A Dir 2
+  analogWrite(6, 80);//Motor A Speed
+  digitalWrite(18, HIGH);//Motor B Dir 1
+  digitalWrite(19, LOW);//Motor B Dir 2
+  analogWrite(5, 110);//Motor B Speed
+}
+void moveBackward(){
+  digitalWrite(16, HIGH); //Motor A Dir 1
+  digitalWrite(17, LOW);//Motor A Dir 2
+  analogWrite(6, 80);//Motor A Speed
+  digitalWrite(18, LOW);//Motor B Dir 1
+  digitalWrite(19, HIGH);//Motor B Dir 2
+  analogWrite(5, 110);//Motor B Speed
+}
+void rotateRight(){
+  digitalWrite(16, LOW); //Motor A Dir 1
+  digitalWrite(17, HIGH);//Motor A Dir 2
+  analogWrite(6, 110);//Motor A Speed
+  digitalWrite(18, LOW);//Motor B Dir 1
+  digitalWrite(19, HIGH);//Motor B Dir 2
+  analogWrite(5, 110);//Motor B Speed
+}
+void rotateLeft(){
+  digitalWrite(16, HIGH); //Motor A Dir 1
+  digitalWrite(17, LOW);//Motor A Dir 2
+  analogWrite(6, 110);//Motor A Speed
+  digitalWrite(18, HIGH);//Motor B Dir 1
+  digitalWrite(19, LOW);//Motor B Dir 2
+  analogWrite(5, 110);//Motor B Speed
+}
+
+float getDistance(){
+  digitalWrite(trigPin, LOW);    //Lines 22 - 26:
+  delayMicroseconds(2);          //these lines create a "pulse" of ultrasonic sound
+  digitalWrite(trigPin, HIGH);   //at a specific rate. 
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  duration = pulseIn(echoPin, HIGH);  //pulseIn function calculates the time between HIGH
+                                      // readings on the echoPin https://www.arduino.cc/reference/en/language/functions/advanced-io/pulsein/
+  distance = (duration*.0343)/2;       // do the speed of sound math
+ 
+  return(distance);
+}
