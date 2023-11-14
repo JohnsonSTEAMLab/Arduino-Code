@@ -1,6 +1,5 @@
 const int trigPin = 9; // set up a pin to trigger our "ping"
-const int echoPin = 10;// set up a pin to time the "echo"
-word botStatus; 
+const int echoPin = 10;// set up a pin to time the "echo" 
 float duration, distance;   // two decimal variables for our distance value.
 
 void setup() {
@@ -21,18 +20,7 @@ pinMode(19,OUTPUT); //Direction High or LOW
 void loop() {
   // put your main code here, to run repeatedl
 
-
-
-
-if (getDistance() < 30){
-Serial.println("too close!");
-rotateLeft();
-}
-else{
-moveForward();  
-}
-
-
+getDistance();
 
 
 }
