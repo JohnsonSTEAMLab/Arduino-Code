@@ -13,6 +13,12 @@ void loop() {
 //turnRight();
 //stopLight();
 
+if(digitalRead(5) == 0){
+  //put instructions here
+  //turnLeft();
+  //Serial.println("TurningLeft");
+}
+
 }
 
 void turnLeft(){
