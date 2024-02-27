@@ -2,6 +2,7 @@
 PWM is a modulate signal that can be used by microcontrollers to
 communicate data. When we set the "duty cycle" of the signal, 
 we are changing the duration that the signal is LOW. 
+
 */
 
 void setup() {
@@ -18,10 +19,11 @@ goSQUARE();
 
 }
 void goSQUARE(){
+int delayVal = 2;
 digitalWrite(3, HIGH);
-delay(1);
+delay(delayVal);
 digitalWrite(3, LOW);
-delay(1);
+delay(delayVal);
 }
 
 void goPWM(){
