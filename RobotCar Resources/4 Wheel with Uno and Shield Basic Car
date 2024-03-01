@@ -21,7 +21,8 @@ void loop() {
 ////// ALL CODE GOES BETWEEN THESE BARS
 //////////////////////////////////////////////////////////
 idle();
-  
+forward(500);
+backward(500);
   
   
   
