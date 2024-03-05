@@ -13,6 +13,7 @@ pinMode(MotorBDirection, OUTPUT); //Motor4
 void loop() {
 
 /// Use the following commands to program your robot
+//    idle();                                             do nothing. Use at start and finish. 
 //    forward(DELAY_TIME_IN_MS);                          move forward for 1 seconds
 //    backward(DELAY_TIME_IN_MS);                         move backward for 1 seconds
 //    rotateLeft(DELAY_TIME_IN_MS);                       rotate toward the left
