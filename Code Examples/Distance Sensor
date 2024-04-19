@@ -1,6 +1,6 @@
 
-const int trigPin = 9; // set up a pin to trigger our "ping"
-const int echoPin = 10;// set up a pin to time the "echo"
+const int trigPin = 4; // set up a pin to trigger our "ping"
+const int echoPin = 5;// set up a pin to time the "echo"
 
 float duration, distance;   // two decimal variables for our distance value.
 
