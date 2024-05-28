@@ -1,0 +1,36 @@
+/// Contributed by Prahbjot, STEAM Year 1
+// should fix issues with wierdo LCDs that we have. 
+// make sure you have the liquid crystal library, and that your display is hooked up to
+// SDA and SCL appropriatly. Google the "pinout" of the board you are using (arduino nano, for example). 
+
+
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+int pH_Value; 
+
+float Voltage;
+
+void setup() 
+{ 
+  lcd.init(); // initialize the lcd
+  lcd.backlight();
+  Serial.begin(9600);
+  pinMode(pH_Value, INPUT);
+ 
+} 
+ 
+void loop() 
+{ 
+   lcd.clear();                 // clear display
+  lcd.setCursor(0, 0);         // move cursor to   (0, 0)
+  lcd.print("pH Level");        // print message at (0, 0)
+  lcd.setCursor(2, 1);         // move cursor to   (2, 1)
+  lcd.print(Voltage); // print message at (2, 1)
+  delay(500);                 // display the above for two seconds
+
+  pH_Value = analogRead(A0); 
+  Voltage = pH_Value * (5.0 / 1023.0); 
+  Serial.println(Voltage); 
+  delay(500); 
+}
