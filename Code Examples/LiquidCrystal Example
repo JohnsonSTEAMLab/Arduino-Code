@@ -1,7 +1,8 @@
-/// Contributed by Prahbjot, STEAM Year 1
+/// Contributed by Prahbjot, STEAM Gen 1
 // should fix issues with wierdo LCDs that we have. 
 // make sure you have the liquid crystal library, and that your display is hooked up to
 // SDA and SCL appropriatly. Google the "pinout" of the board you are using (arduino nano, for example). 
+// https://preview.redd.it/any-way-to-program-arduino-nano-directly-from-tx-rx-pins-v0-25g6jjgf5rdc1.jpeg?auto=webp&s=7068dd5d861dbbe0646c9b056dbb823282679e5a
 
 
 #include <LiquidCrystal_I2C.h>
