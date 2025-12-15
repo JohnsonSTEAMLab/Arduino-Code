@@ -1,0 +1,119 @@
+#include <Wire.h>
+#define I2C_ADDR 0x42
+
+uint16_t ch[16];
+uint8_t alive = 0;
+uint16_t frameCount0 = 0, frameCount1 = 0;
+uint8_t flags0 = 0;
+
+bool readPage(uint8_t page, uint16_t *dest8, uint8_t &aliveOut, uint16_t &countOut, uint8_t &flagsOut) {
+  Wire.beginTransmission(I2C_ADDR);
+  Wire.write(page);
+  if (Wire.endTransmission(true) != 0) return false;
+
+  Wire.requestFrom(I2C_ADDR, (uint8_t)20);
+  if (Wire.available() != 20) return false;
+
+  aliveOut = Wire.read();
+
+  uint8_t lo = Wire.read();
+  uint8_t hi = Wire.read();
+  countOut = (uint16_t)(lo | (hi << 8));
+
+  for (int i = 0; i < 8; i++) {
+    uint8_t cLo = Wire.read();
+    uint8_t cHi = Wire.read();
+    dest8[i] = (uint16_t)(cLo | (cHi << 8));
+  }
+
+  flagsOut = Wire.read();
+  return true;
+}
+
+void setup() {
+  Serial.begin(115200);
+  delay(500);
+  Serial.println("Main Nano: SBUS-over-I2C poller booting...");
+
+  Wire.begin();
+  Wire.setClock(100000); // start conservative; can raise later
+}
+
+void loop() {
+////////////////////////////////////////////////////////////////////
+///Don't Touch!!!  
+c
+  static unsigned long lastPrint = 0;
+
+  uint16_t p0[8], p1[8];
+  uint8_t a0=0, a1=0;
+  uint16_t c0=0, c1=0;
+  uint8_t f0=0, f1=0;
+
+  bool ok0 = readPage(0, p0, a0, c0, f0);
+  bool ok1 = readPage(1, p1, a1, c1, f1);
+
+  if (ok0 && ok1) {
+    alive = a0 | a1;
+    frameCount0 = c0;
+    frameCount1 = c1;
+    flags0 = f0;
+
+    for (int i=0; i<8; i++) ch[i] = p0[i];
+    for (int i=0; i<8; i++) ch[i+8] = p1[i];
+  }
+
+  // Print at ~20 Hz regardless
+  if (millis() - lastPrint >= 50) {
+    lastPrint = millis();
+
+    if (!(ok0 && ok1)) {
+      Serial.println("I2C poll failed (check SBUS Nano powered + address 0x42)");
+      return;
+    }
+
+    bool failsafe  = (flags0 & 0x01) != 0;
+    bool lostFrame = (flags0 & 0x02) != 0;
+
+int ch1Val = ch[0];
+int ch2Val = ch[1];
+int ch3Val = ch[2];
+int ch4Val = ch[3];
+int ch5Val = ch[4];
+int ch6Val = ch[5];
+int ch7Val = ch[6];
+int ch8Val = ch[7];
+int ch9Val = ch[8];
+int ch10Val = ch[9];
+int ch11Val = ch[10];
+int ch12Val = ch[11];
+int ch13Val = ch[12];
+int ch14Val = ch[13];
+int ch15Val = ch[14];
+int ch16Val = ch[15];
+
+
+    Serial.print("CH1 ");Serial.print(ch[0]); Serial.print(" ");
+    Serial.print("CH2 ");Serial.print(ch[1]); Serial.print(" ");
+    Serial.print("CH3 ");Serial.print(ch[2]); Serial.print(" ");
+    Serial.print("CH4 ");Serial.print(ch[3]); Serial.print(" ");
+    Serial.print("CH5 ");Serial.print(ch[4]); Serial.print(" ");
+    Serial.print("CH6 ");Serial.print(ch[5]); Serial.print(" ");
+    Serial.print("CH7 ");Serial.print(ch[6]); Serial.print(" ");
+    Serial.print("CH8 ");Serial.print(ch[7]); Serial.print(" ");
+    Serial.print("CH9 ");Serial.print(ch[8]); Serial.print(" ");
+    Serial.print("CH10 ");Serial.print(ch[9]); Serial.print(" ");
+    Serial.print("CH11 ");Serial.print(ch[10]); Serial.print(" ");
+    Serial.print("CH12 ");Serial.print(ch[11]); Serial.print(" ");
+    Serial.print("CH13 ");Serial.print(ch[12]); Serial.print(" ");
+    Serial.print("CH14 ");Serial.print(ch[13]); Serial.print(" ");
+    Serial.print("CH15 ");Serial.print(ch[14]); Serial.print(" ");
+    Serial.print("CH16 ");Serial.print(ch[15]); Serial.println(" ");
+  }
+////////////////////////////////////////////////////////////////////
+New Code Below Here!!!
+////////////////////////////////////////////////////////////////////
+
+
+
+}
